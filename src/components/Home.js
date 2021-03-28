@@ -8,10 +8,22 @@ import OurProducts from './OurProducts'
 import blogarrow from '../assets/blogarrow.png'
 import Blogs from './Blogs'
 import AskQuestions from './AskQuestions';
+import {connect} from 'react-redux';
+
 class Home extends React.Component {
-  state = {
-    toggler: 1
+
+ 
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+      toggler: 1
+      
+    };
+    console.log(this.props.cardItems);
   }
+
+  
   render() {
     return (
       <div className="Home bgimg-1" style={{ position: 'relative' }}>
@@ -76,4 +88,7 @@ class Home extends React.Component {
   }
 
 };
-export default Home;
+const mapStateToProps = (cardItems) => {
+  return cardItems;
+};
+export default connect(mapStateToProps)(Home);
