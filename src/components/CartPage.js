@@ -16,12 +16,15 @@ import 'swiper/swiper.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CartProduct from '../components/CartProduct'
 import Footer from './Footer';
+import { connect } from 'react-redux';
 class AddingToCart extends React.Component {
     state = {
         hearttoggler: false,
         counter: 0,
     }
     render() {
+        console.log(this.props);
+        let total_amount=0
         SwiperCore.use([Navigation]);
         const svganimation = {
             hidden: {
@@ -250,7 +253,22 @@ class AddingToCart extends React.Component {
                                 <img src={cart} alt="" />
                                 <span className="cart-heading-heading">Cart</span>
                             </div>
-                            {Array(5).fill().map((item, index) =>
+                            { this.props?.cartData && this.props?.cartData.length ? 
+                            this.props?.cartData.map((pro,ind) => (
+                                total_amount+=(parseInt(pro.productUnit[0].cvr)+parseInt(pro.productUnit[0].itemPrice)) * pro.quantity ,
+
+                                <SelectedItem
+                                    key={ind}
+                                    id={pro.id}
+                                    heading={pro.itemName}
+                                    headingsmall={pro.storeName}
+                                    size={pro.productUnit[0].unit}
+                                    price={parseInt(pro.productUnit[0].cvr)+parseInt(pro.productUnit[0].itemPrice) }
+                                    quantity={pro.quantity}
+                                    imgsrc={pro.imgUrl}
+                                />
+                            )):null}
+                            {/* {Array(5).fill().map((item, index) =>
 
                                 <SelectedItem
                                     heading="Casamigos – Blanco"
@@ -259,7 +277,7 @@ class AddingToCart extends React.Component {
                                     price=" $25"
                                     imgsrc={cartimg}
                                 />
-                            )}
+                            )} */}
                             <div className="inner-cart-div mt-5 border-top pt-5">
                                 <div className="cart-left-side">
                                     <img src={this.props.imgsrc} alt="" />
@@ -270,7 +288,7 @@ class AddingToCart extends React.Component {
                                         <span className="div-right-side-small-heading m-2" style={{ textAlign: 'left' }} >{this.props.headingsmall}</span>
                                         <div className="m-2" style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', width: '100%' }} >
                                             <span className=" div-right-side-small-heading m-2" style={{ display: 'flex', justifyContent: 'center', alignItems: "center", width: '100%', alignSelf: 'center' }} >Total Amount</span>
-                                            <span className="li-size" style={{ fontSize: '7rem', display: 'flex', justifyContent: 'center', alignItems: "center", width: '100%', alignSelf: 'center' }} >96$</span>
+                                            <span className="li-size" style={{ fontSize: '7rem', display: 'flex', justifyContent: 'center', alignItems: "center", width: '100%', alignSelf: 'center' }} >{total_amount}$</span>
                                         </div>
                                     </div>
                                 </div>
@@ -300,4 +318,12 @@ class AddingToCart extends React.Component {
     }
 
 };
-export default AddingToCart;
+
+const mapStateToProps = (state) => {
+    return {
+        cartData: state.CartReducer.cartData
+    };
+};
+
+
+export default connect(mapStateToProps)(AddingToCart);

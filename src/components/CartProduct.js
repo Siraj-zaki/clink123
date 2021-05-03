@@ -3,28 +3,37 @@ import bottle from '../assets/tequilabottle.png'
 import heart from '../assets/heart.png'
 import heartfill from '../assets/heartfill.png'
 import '../css/products.css'
+
+
 class CartProduct extends React.Component {
+    
     state = {
+
         cartproduct: [
             {
-                img: bottle,
-                Company: "Jose Cuervo",
-                Bottle: 'Tequila Reposado',
-                Size: '750 ml'
+                img: this.props?.product?.imgUrl,
+                Company: this.props?.product?.storeName,
+                Bottle: this.props?.product?.itemName,
+                Size: this.props?.product?.price
 
             }
 
         ],
+        product:[],
         hearttoggler: false
 
     }
+
+  
+   
+
     render() {
 
         return (
             <div>
                 {
                     this.state.cartproduct.map((cart, index) =>
-                        <div className="add-products" onClick={() => window.location.href = "/AddingToCart"} style={{ position: 'relative', minHeight: this.props.newheight ? 310 : "", width: this.props.newwidth ? 214 : "" }} key={index} >
+                        <div className="add-products" onClick={() => window.location.href = `/AddingToCart/${this.props.product.id}`} style={{ position: 'relative', minHeight: this.props.newheight ? 310 : "", width: this.props.newwidth ? 214 : "" }} key={index} >
                             <div className="heart-main" onClick={() => this.setState({ hearttoggler: !this.state.hearttoggler })}>
                                 <img className="heart-div" src={this.state.hearttoggler === true ? heartfill : heart} alt="" />
                             </div>
@@ -40,4 +49,4 @@ class CartProduct extends React.Component {
         )
     }
 }
-export default CartProduct
+export default CartProduct          

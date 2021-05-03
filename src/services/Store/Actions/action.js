@@ -1,14 +1,4 @@
 import { ADD_TO_CART ,LOGIN_USER1} from "../../constants";
- 
-export const addtocart=(data)=>{
-    return async dispatch=>{
-       dispatch({
-        type:ADD_TO_CART,
-        data:data
-       })
-    }
-
-}  
 
  
 export const LOGIN_USER=(data)=>{

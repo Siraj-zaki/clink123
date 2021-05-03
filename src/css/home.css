@@ -19,7 +19,10 @@
     padding-left: 10rem;
     flex-direction: column;
 }
-
+.dark-toast{
+    background:red;
+    color: #fff;
+  }
 .left-side {
     width: 40%;
     display: flex;

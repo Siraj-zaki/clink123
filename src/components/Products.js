@@ -10,12 +10,26 @@ import '../css/products.css'
 import Navbar from './Navbar'
 import CartProduct from '../components/CartProduct'
 import Footer from './Footer';
+import { getProduct } from "./../Service/service";
 class Products extends React.Component {
     state = {
         toggler: 1,
+        product:[]
 
     }
+   async componentDidMount() {
+        window.scrollTo(0, 0)
+        try {
+            let product = await getProduct();
+         
+            this.setState({product:product?.data?.result})
+          } catch (error) {
+            console.log(error?.data);
+            console.log(error?.response?.data?.message);
+          }
+    }
     render() {
+        console.log(this.state.product);
         return (
             <div className="Home bgimg-1" style={{ position: 'relative',backgroundColor:'white' }}>
                 {
@@ -113,9 +127,11 @@ class Products extends React.Component {
                         </div>
                         <div className="products-cart">
                             {
-                                Array(10).fill().map((item, index) =>
-                                    <CartProduct />
+                                this.state && this.state.product?
+                                this.state?.product.map((item, index) =>
+                                    <CartProduct product={item}/>
                                 )
+                                :'product Not Found'
                             }
 
                         </div>

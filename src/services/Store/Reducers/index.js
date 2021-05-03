@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
-import  cardItems  from "./reducer";
+import AuthReducer from "./authReducer";
+import CartReducer from "./cartReducer";
 
 export default combineReducers({
-    cardItems ,
-
+    AuthReducer,
+    CartReducer
 })

@@ -18,8 +18,8 @@ import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { customerSignUp,customerLogin } from "./../Service/service";
-import { LOGIN_USER} from "./../services/Store/Actions/action";
+import { customerSignUp, customerLogin } from "./../Service/service";
+import { LOGIN_USER } from "./../services/Store/Actions/action";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +42,7 @@ class Navbar extends React.Component {
       age: "",
       signup: [],
       errors: {},
-      customer:null
+      customer: null
     };
     // formhandler1 = (e) => {
     //     e.preventDefault()
@@ -71,7 +71,7 @@ class Navbar extends React.Component {
   //         console.log(error);
   //       }
   // }
- 
+
   handleChangeEmail(e) {
     console.log(e.target.value);
     this.setState({ email: e.target.value });
@@ -106,90 +106,92 @@ class Navbar extends React.Component {
         let data = {
           email: this.state.email,
           password: this.state.password,
-          age:this.state.age
+          age: this.state.age,
+          type: 'user'
         };
-        console.log("data",data);
-      let customer= await customerSignUp(data)
-        .then((re1) => {
-           console.log(re1);
-          if(re1?.data?.success){
-            return toast(re1.data.message, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-              }else{
-                console.log("errrrr",re1);
-                return toast("Email Already Exists", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              }
+        console.log("data", data);
+        let customer = await customerSignUp(data)
+          .then((re1) => {
+            console.log(re1);
+            if (re1?.data?.success) {
+              return toast(re1.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } else {
+              console.log("errrrr", re1);
+              return toast("Email Already Exists", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
 
-          
-        })
-        .catch(err => { 
-         console.log("er",err);
-        })
+
+          })
+          .catch(err => {
+            console.log("er", err);
+          })
       }
-       catch (error) {
+      catch (error) {
         console.log(error);
       }
     }
   }
 
-  async formhandler1 (e)  {
-   
+  async formhandler1(e) {
+
     e.preventDefault()
-    console.log("state",this.state.email);
-       let data = {
-           email: this.state.email,
-           password: this.state.password,
-         
-         };
+    console.log("state", this.state.email);
+    let data = {
+      email: this.state.email,
+      password: this.state.password,
 
-         try {
-           let customer= await customerLogin(data);
-           if(customer){
-             this.props.LOGIN_USER(customer.data.data)
-           console.log(this.props.cardItems) 
-            return toast("Login Successfully", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-             console.log(customer);
+    };
 
-           }
-           
-           
-       } catch (error) {
-           console.log(error.data);
-           console.log(error.response.data.message);
-       }
+    try {
+      let customer = await customerLogin(data);
+      if (customer && customer.data && customer.data.data) {
+        console.log(customer.data.data);
+        this.props.LOGIN_USER(customer.data.data)
+        // console.log(this.props.cardItems)
+        return toast("Login Successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        console.log(customer);
+
+      }
+
+
+    } catch (error) {
+      console.log(error.data);
+      console.log(error.response.data.message);
+    }
     //    console.log("data1",customer);
 
-   }
+  }
   validateForm() {
     let errors = {};
 
     let formIsValid = true;
 
     if (!this.state.email) {
-        // formIsValid = false;
+      // formIsValid = false;
       //   console.log("state empty");
       return toast("🦄 Wow so easy!", {
         position: "top-right",
@@ -219,7 +221,7 @@ class Navbar extends React.Component {
     }
 
     if (!this.state.password) {
-    //   formIsValid = false;
+      //   formIsValid = false;
 
       errors["password"] = "*Please enter your password.";
     }
@@ -239,12 +241,12 @@ class Navbar extends React.Component {
     this.setState({
       errors: errors,
     });
-    console.log("formIsValid",formIsValid);
+    console.log("formIsValid", formIsValid);
     return formIsValid;
   }
 
   render() {
-    console.log("LOGIN_USER1",this.props.cardItems.cardData);
+    console.log("LOGIN_USER1", this.props);
 
     return (
       <>
@@ -480,7 +482,7 @@ class Navbar extends React.Component {
                 className="signup-menu-back"
               ></div>
               <form
-               onSubmit={this.formhandler1}
+                onSubmit={this.formhandler1}
                 ani={this.state.toggler1}
                 className="signup-menu"
               >
@@ -514,7 +516,7 @@ class Navbar extends React.Component {
 
                       <input
                         onChange={this.handleChangeEmail}
-                        
+
                         className="input-1-new"
                         type="email"
                         id="email1"
@@ -535,7 +537,7 @@ class Navbar extends React.Component {
                         <img src={eye} alt="" />
                       </label>
                       <input
-                       onChange={this.handleChangePassword}
+                        onChange={this.handleChangePassword}
                         className="input-1-new"
                         type={this.state.passShow ? "text" : "password"}
                         id="pass1"
@@ -558,7 +560,7 @@ class Navbar extends React.Component {
                           className="checking m-1"
                           type="checkbox"
                           id="checking"
-                          
+
                         />
 
                         <label
@@ -818,14 +820,16 @@ class Navbar extends React.Component {
     );
   }
 }
-const mapStateToProps = (cardItems) => {
-  return cardItems;
+const mapStateToProps = (state) => {
+  return {
+    user: state.AuthReducer.user
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    LOGIN_USER:data=>{dispatch(LOGIN_USER(data))}
-   
+    LOGIN_USER: data => { dispatch(LOGIN_USER(data)) }
+
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
