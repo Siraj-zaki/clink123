@@ -297,13 +297,13 @@ class AddingToCart extends React.Component {
 
 
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                <span className="go-back" onClick={() => window.location.href = "./AddingToCart"} style={{ fontSize: '18px' }} >Go Back</span>
+                                <span className="go-back " onClick={() => window.history.go(-1)} style={{ fontSize: '18px',cursor:'pointer' }} >Go Back</span>
                                 <button onClick={() =>this.props.user?.id? window.location.href = "/Devilvery":  toast.warn("Please login Your Account",{
             style:{fontSize:13},
             className: 'dark-toast',
             autoClose: 5000
           })} className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }} >Proceed to Delivery </button>
-                                <span className="remove-all" >Remove all </span>
+                                <span className="remove-all ">Remove all </span>
                             </div>
                         </div>
                     </div>

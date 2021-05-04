@@ -225,6 +225,7 @@
 .menu {
     overflow: scroll;
     position: fixed;
+    min-height: 600px!important;
     height: 100%;
     width: 56.6%;
     right: 0;
@@ -244,7 +245,7 @@
 .menu-li {
     font-family: Montserrat;
     font-weight: normal;
-    font-size: 3.5rem;
+    font-size: 2rem;
     text-align: left;
     color: #f7f6f1;
     list-style: none;
@@ -296,6 +297,7 @@ li {
 .menu[ani="1"] {
     animation-name: menu;
     animation-duration: 1s;
+    min-height: 600px!important;
 }
 
 .menu-back[ani="0"] {

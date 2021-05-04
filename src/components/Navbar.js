@@ -61,11 +61,12 @@ class Navbar extends React.Component {
     this.formhandler1 = this.formhandler1.bind(this);
   }
 
-     componentDidMount() {
-      const handler = e => this.setState({ matches: e.matches });
-      window.matchMedia("(max-width: 768px)").addListener(handler);
+  componentDidMount() {
+    const handler = e => this.setState({ matches: e.matches });
+    window.matchMedia("(max-width: 768px)").addListener(handler);
 
   }
+
 
   handleChangeEmail(e) {
     console.log(e.target.value);
@@ -109,15 +110,15 @@ class Navbar extends React.Component {
           .then((re1) => {
             console.log(re1);
             if (re1?.data?.success) {
-              return  toast.warn(re1.data.message,{
-                style:{fontSize:13},
+              return toast.warn(re1.data.message, {
+                style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
               });
             } else {
               console.log("errrrr", re1);
-              return  toast.warn("Email Already Access",{
-                style:{fontSize:13},
+              return toast.warn("Email Already Access", {
+                style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
               });
@@ -151,8 +152,8 @@ class Navbar extends React.Component {
         console.log(customer.data.data);
         this.props.LOGIN_USER(customer.data.data)
         // console.log(this.props.cardItems)
-        return  toast.warn("Login Successfully",{
-          style:{fontSize:13},
+        return toast.warn("Login Successfully", {
+          style: { fontSize: 13 },
           className: 'dark-toast',
           autoClose: 5000
         });
@@ -176,8 +177,8 @@ class Navbar extends React.Component {
     if (!this.state.email) {
       // formIsValid = false;
       //   console.log("state empty");
-      return  toast.warn("Email Not Correct",{
-        style:{fontSize:13},
+      return toast.warn("Email Not Correct", {
+        style: { fontSize: 13 },
         className: 'dark-toast',
         autoClose: 5000
       });

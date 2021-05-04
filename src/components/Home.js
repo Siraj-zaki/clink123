@@ -26,7 +26,7 @@ class Home extends React.Component {
   
   render() {
     return (
-      <div className="Home bgimg-1" style={{ position: 'relative' }}>
+      <div className="Home bgimg-1" style={{ position: 'relative'}}>
         {
           this.state.toggler === 1 ?
             <>
