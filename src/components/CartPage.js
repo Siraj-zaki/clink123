@@ -17,6 +17,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import CartProduct from '../components/CartProduct'
 import Footer from './Footer';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from "react-toastify";
 class AddingToCart extends React.Component {
     state = {
         hearttoggler: false,
@@ -297,7 +298,11 @@ class AddingToCart extends React.Component {
 
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
                                 <span className="go-back" onClick={() => window.location.href = "./AddingToCart"} style={{ fontSize: '18px' }} >Go Back</span>
-                                <button onClick={() => window.location.href = "/Devilvery"} className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }} >Proceed to Delivery </button>
+                                <button onClick={() =>this.props.user?.id? window.location.href = "/Devilvery":  toast.warn("Please login Your Account",{
+            style:{fontSize:13},
+            className: 'dark-toast',
+            autoClose: 5000
+          })} className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }} >Proceed to Delivery </button>
                                 <span className="remove-all" >Remove all </span>
                             </div>
                         </div>
@@ -321,6 +326,7 @@ class AddingToCart extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        user: state.AuthReducer.user,
         cartData: state.CartReducer.cartData
     };
 };

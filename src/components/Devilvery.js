@@ -60,6 +60,8 @@ class Devilvery extends React.Component {
 }
 
 async componentDidMount(){
+    
+
     let customer = await getDeliverybycustomer(this.props?.user.user_ID)
     console.log(customer.data.result);
     this.setState({customer_address:customer.data.result})
@@ -83,7 +85,7 @@ async componentDidMount(){
               address: this.state.openaddress,
               city: this.state.city,
               area: this.state.area,
-              userID: this.props.user.user_ID,
+              userID: this.props?.user?.user_ID,
               
             };
             console.log("data", data);

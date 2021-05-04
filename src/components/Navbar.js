@@ -16,7 +16,7 @@ import lock from "../assets/lock.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 import { customerSignUp, customerLogin } from "./../Service/service";
 import { LOGIN_USER } from "./../services/Store/Actions/action";
@@ -114,25 +114,17 @@ class Navbar extends React.Component {
           .then((re1) => {
             console.log(re1);
             if (re1?.data?.success) {
-              return toast(re1.data.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+              return  toast.warn(re1.data.message,{
+                style:{fontSize:13},
+                className: 'dark-toast',
+                autoClose: 5000
               });
             } else {
               console.log("errrrr", re1);
-              return toast("Email Already Exists", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+              return  toast.warn("Email Already Access",{
+                style:{fontSize:13},
+                className: 'dark-toast',
+                autoClose: 5000
               });
             }
 
@@ -164,14 +156,10 @@ class Navbar extends React.Component {
         console.log(customer.data.data);
         this.props.LOGIN_USER(customer.data.data)
         // console.log(this.props.cardItems)
-        return toast("Login Successfully", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+        return  toast.warn("Login Successfully",{
+          style:{fontSize:13},
+          className: 'dark-toast',
+          autoClose: 5000
         });
         console.log(customer);
 
@@ -193,14 +181,10 @@ class Navbar extends React.Component {
     if (!this.state.email) {
       // formIsValid = false;
       //   console.log("state empty");
-      return toast("🦄 Wow so easy!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+      return  toast.warn("Email Not Correct",{
+        style:{fontSize:13},
+        className: 'dark-toast',
+        autoClose: 5000
       });
 
       errors["email"] = "*Please enter your email-ID.";

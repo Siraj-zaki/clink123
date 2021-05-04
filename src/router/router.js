@@ -10,6 +10,7 @@ import AddingToCart from '../components/AddingToCart'
 import Payment from '../components/Payment'
 import Devilvery from '../components/Devilvery'
 import Finished from '../components/Finished'
+import Navbar from '../components/Navbar'
 import Shops from '../components/Shops'
 import { ElementsConsumer, CardElement } from "@stripe/react-stripe-js";
 
@@ -19,6 +20,7 @@ class ReactRouter extends React.Component {
       <React.Fragment>
         <Route exact path="/" component={Home} />
         <Route path="/Home" component={Home} />
+        <Route path="/navbar" component={Navbar} />
         <Route path="/CartPage" component={CartPage} />
         <Route path="/BlogPage" component={BlogPage} />
         <Route path="/AboutUs" component={AboutUs} />
