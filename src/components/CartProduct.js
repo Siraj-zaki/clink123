@@ -6,7 +6,7 @@ import '../css/products.css'
 
 
 class CartProduct extends React.Component {
-    
+
     state = {
 
         cartproduct: [
@@ -19,13 +19,13 @@ class CartProduct extends React.Component {
             }
 
         ],
-        product:[],
+        product: [],
         hearttoggler: false
 
     }
 
-  
-   
+
+
 
     render() {
 
@@ -33,14 +33,16 @@ class CartProduct extends React.Component {
             <div>
                 {
                     this.state.cartproduct.map((cart, index) =>
-                        <div className="add-products" onClick={() => window.location.href = `/AddingToCart/${this.props.product.id}`} style={{ position: 'relative', minHeight: this.props.newheight ? 310 : "", width: this.props.newwidth ? 214 : "" }} key={index} >
+                        <div className="" style={{ position: 'relative', minHeight: this.props.newheight ? 310 : "", width: this.props.newwidth ? 280 : "" }} key={index} >
                             <div className="heart-main" onClick={() => this.setState({ hearttoggler: !this.state.hearttoggler })}>
                                 <img className="heart-div" src={this.state.hearttoggler === true ? heartfill : heart} alt="" />
                             </div>
-                            <img height="250px" width="250px" src={cart.img} alt="not" />
-                            <span className="cart-company" >{cart.Company}</span>
-                            <span className="cart.bottle" >{cart.Bottle}</span>
-                            <span className="cart-size">{cart.Size}</span>
+                            <div className="add-products" onClick={() => window.location.href = `/AddingToCart/${this.props.product.id}`}>
+                                <img height="250px" width="250px" src={cart.img} alt="not" />
+                                <span className="cart-company" >{cart.Company}</span>
+                                <span className="cart.bottle" >{cart.Bottle}</span>
+                                <span className="cart-size">{cart.Size}</span>
+                            </div>
                         </div>
                     )
                 }
@@ -49,4 +51,4 @@ class CartProduct extends React.Component {
         )
     }
 }
-export default CartProduct          
+export default CartProduct

@@ -155,12 +155,7 @@ class Devilvery extends React.Component {
             }
         }
     }
-    Address = () => {
-        if (this.state.addressname === null) {
-            return toast.dark("Please Add Address Name")
 
-        }
-    }
     validateForm() {
         let errors = {};
 
@@ -247,6 +242,8 @@ class Devilvery extends React.Component {
     DevilveryAddress = () => {
         if (this.state.customer_id === false) {
             return toast.dark("Please Select Address")
+        } else if (this.props?.cartData.length === 0) {
+            return toast.dark("CART IS EMPTY")
         } else window.location.href = "/Payment"
 
     }

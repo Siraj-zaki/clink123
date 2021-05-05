@@ -23,9 +23,28 @@ class AddingToCart extends React.Component {
         hearttoggler: false,
         counter: 0,
     }
+    emptyCart = () => {
+        // if (this.props.user?.id === true) {
+        //      window.location.href = "/Devilvery"
+
+        // } else if (this.props.user?.id === true) {
+        //     return toast.dark("PLEASE LOGIN FIRST")
+        // }
+        // else if (this.props?.cartData === null) {
+        //     return toast.dark("NO ITEM IN CART")
+        // }
+        if (this.props?.cartData.length === 0) {
+            return toast.dark("CART IS EMPTY")
+        } else return this.props.user?.id ? window.location.href = "/Devilvery" : toast.dark("Please login Your Account")
+        //  else if (this.props.user?.id === true) {
+        //     window.location.href = "/Devilvery"
+        // } else return toast.dark("PLEASE LOGIN FIRST ")
+
+    }
+    // this.props.user?.id ? window.location.href = "/Devilvery" : toast.warn("Please login Your Account"
     render() {
         console.log(this.props);
-        let total_amount=0
+        let total_amount = 0
         SwiperCore.use([Navigation]);
         const svganimation = {
             hidden: {
@@ -219,7 +238,7 @@ class AddingToCart extends React.Component {
                             <button className="li-size  addtocart " style={{ backgroundColor: 'transparent', minHeight: 70, border: '1px solid  #a10948 ', color: '#a10948', width: 270, marginTop: 160 }} >Explore More</button>
                         </div>
                     </div> */}
-                    <div className="slider-div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: "400px" }} >
+                    <div className="slider-div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: "450px" }} >
                         <div style={{ margin: 30 }} >
                             <span className="slider-heading" >Products you may like</span>
                         </div>
@@ -246,7 +265,7 @@ class AddingToCart extends React.Component {
                             </Swiper>
                         </div>
                         <button className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270 }} >Add to Cart</button>
-                        <button className="li-size  addtocart " style={{ backgroundColor: 'transparent', minHeight: 70, border: '1px solid  #a10948 ', color: '#a10948', width: 270, marginTop: 40, }} >Explore More</button>
+                        <button className="li-size  addtocart " style={{ backgroundColor: 'transparent', minHeight: 70, border: '1px solid  #a10948 ', color: '#a10948', width: 270, marginTop: 40, }} onClick={() => window.location.href = "/Products"} >Explore More</button>
                     </div>
                     <div className="cart-right-side" style={{ zIndex: 1, width: '100%', paddingLeft: '4rem' }}>
                         <div className="selected-items-div">
@@ -254,21 +273,21 @@ class AddingToCart extends React.Component {
                                 <img src={cart} alt="" />
                                 <span className="cart-heading-heading">Cart</span>
                             </div>
-                            { this.props?.cartData && this.props?.cartData.length ? 
-                            this.props?.cartData.map((pro,ind) => (
-                                total_amount+=(parseInt(pro.productUnit[0].cvr)+parseInt(pro.productUnit[0].itemPrice)) * pro.quantity ,
+                            {this.props?.cartData && this.props?.cartData.length ?
+                                this.props?.cartData.map((pro, ind) => (
+                                    total_amount += (parseInt(pro.productUnit[0].cvr) + parseInt(pro.productUnit[0].itemPrice)) * pro.quantity,
 
-                                <SelectedItem
-                                    key={ind}
-                                    id={pro.id}
-                                    heading={pro.itemName}
-                                    headingsmall={pro.storeName}
-                                    size={pro.productUnit[0].unit}
-                                    price={parseInt(pro.productUnit[0].cvr)+parseInt(pro.productUnit[0].itemPrice) }
-                                    quantity={pro.quantity}
-                                    imgsrc={pro.imgUrl}
-                                />
-                            )):null}
+                                    <SelectedItem
+                                        key={ind}
+                                        id={pro.id}
+                                        heading={pro.itemName}
+                                        headingsmall={pro.storeName}
+                                        size={pro.productUnit[0].unit}
+                                        price={parseInt(pro.productUnit[0].cvr) + parseInt(pro.productUnit[0].itemPrice)}
+                                        quantity={pro.quantity}
+                                        imgsrc={pro.imgUrl}
+                                    />
+                                )) : null}
                             {/* {Array(5).fill().map((item, index) =>
 
                                 <SelectedItem
@@ -297,12 +316,18 @@ class AddingToCart extends React.Component {
 
 
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                <span className="go-back " onClick={() => window.history.go(-1)} style={{ fontSize: '18px',cursor:'pointer' }} >Go Back</span>
-                                <button onClick={() =>this.props.user?.id? window.location.href = "/Devilvery":  toast.warn("Please login Your Account",{
-            style:{fontSize:13},
-            className: 'dark-toast',
-            autoClose: 5000
-          })} className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }} >Proceed to Delivery </button>
+                                <span className="go-back " onClick={() => window.history.go(-1)} style={{ fontSize: '18px', cursor: 'pointer' }} >Go Back</span>
+                                <button onClick={
+                                    //     () => 
+                                    // this.props.user?.id ? window.location.href = "/Devilvery" : toast.warn("Please login Your Account", {
+                                    //     style: { fontSize: 13 },
+                                    //     className: 'dark-toast',
+                                    //     autoClose: 5000
+
+                                    // }
+                                    // )
+                                    this.emptyCart
+                                } className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }}  >Proceed to Delivery </button>
                                 <span className="remove-all ">Remove all </span>
                             </div>
                         </div>

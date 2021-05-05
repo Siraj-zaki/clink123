@@ -180,10 +180,10 @@ class Payment extends React.Component {
         const { stripe, elements } = this.props;
         console.log(stripe);
         if (!stripe || !elements) {
-            return;
+            return toast.dark("PLEASE FILL FORM TO PROCEED");
+        } else if (this.props?.cardData.length === 0) {
+            return toast.dark("CART IS EMPTY")
         }
-
-
         try {
 
 
@@ -216,9 +216,11 @@ class Payment extends React.Component {
                     let customer = await addOrder(data)
                         .then((re1) => {
                             console.log(re1);
-
                             console.log(this.props);
-                            window.location.href = "/Products"
+                            toast.dark("PAYMENT PAID")
+                            setTimeout(() => {
+                                window.location.href = "/Products"
+                            }, 2000);
 
                         })
                         .catch(err => {
@@ -475,20 +477,20 @@ class Payment extends React.Component {
                                         <div className="form-selected-option " style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
                                             <CardCvcElement options={CARD_ELEMENT_OPTIONS} className='adresses-input mt-4' />
                                             <div className="mt-4" style={{ width: 'auto', minWidth: 'auto' }} >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="172.2" height="76" viewBox="0 0 172.2 76">
-                                                <g id="Group_6254" data-name="Group 6254" transform="translate(-636.8 -692)">
-                                                    <text id="Card_Number" data-name="Card Number" transform="translate(685 747)" fill="#a2a2a2" font-size="18" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0"></tspan></text>
-                                                    <g id="Group_5348" data-name="Group 5348" transform="translate(604.8 596)">
-                                                        <path id="Path_3536" data-name="Path 3536" d="M131.75,96H38.65A6.654,6.654,0,0,0,32,102.65v62.7A6.67,6.67,0,0,0,38.65,172h93.1a6.67,6.67,0,0,0,6.65-6.721V102.721A6.67,6.67,0,0,0,131.75,96Zm-89.039,7.6h84.954a3.157,3.157,0,0,1,3.111,2.85v4.75H39.6v-4.821A3.131,3.131,0,0,1,42.711,103.6Zm84.977,60.8H42.711a3.114,3.114,0,0,1-3.111-2.779V134h91.2v27.55A3.175,3.175,0,0,1,127.689,164.4Z" fill="#233d3a" />
-                                                        <path id="Path_3537" data-name="Path 3537" d="M96,304h45.6v3.8H96Z" transform="translate(-48.8 -158.6)" fill="#233d3a" />
-                                                        <path id="Path_3538" data-name="Path 3538" d="M96,336h22.8v3.8H96Z" transform="translate(-48.8 -183)" fill="#233d3a" />
-                                                        <path id="Path_3539" data-name="Path 3539" d="M352,304h15.2v11.4H352Z" transform="translate(-244 -158.6)" fill="#233d3a" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="172.2" height="76" viewBox="0 0 172.2 76">
+                                                    <g id="Group_6254" data-name="Group 6254" transform="translate(-636.8 -692)">
+                                                        <text id="Card_Number" data-name="Card Number" transform="translate(685 747)" fill="#a2a2a2" font-size="18" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0"></tspan></text>
+                                                        <g id="Group_5348" data-name="Group 5348" transform="translate(604.8 596)">
+                                                            <path id="Path_3536" data-name="Path 3536" d="M131.75,96H38.65A6.654,6.654,0,0,0,32,102.65v62.7A6.67,6.67,0,0,0,38.65,172h93.1a6.67,6.67,0,0,0,6.65-6.721V102.721A6.67,6.67,0,0,0,131.75,96Zm-89.039,7.6h84.954a3.157,3.157,0,0,1,3.111,2.85v4.75H39.6v-4.821A3.131,3.131,0,0,1,42.711,103.6Zm84.977,60.8H42.711a3.114,3.114,0,0,1-3.111-2.779V134h91.2v27.55A3.175,3.175,0,0,1,127.689,164.4Z" fill="#233d3a" />
+                                                            <path id="Path_3537" data-name="Path 3537" d="M96,304h45.6v3.8H96Z" transform="translate(-48.8 -158.6)" fill="#233d3a" />
+                                                            <path id="Path_3538" data-name="Path 3538" d="M96,336h22.8v3.8H96Z" transform="translate(-48.8 -183)" fill="#233d3a" />
+                                                            <path id="Path_3539" data-name="Path 3539" d="M352,304h15.2v11.4H352Z" transform="translate(-244 -158.6)" fill="#233d3a" />
+                                                        </g>
                                                     </g>
-                                                </g>
-                                            </svg>
-                                        </div> 
+                                                </svg>
+                                            </div>
                                         </div>
-                                        
+
                                         <div className="form-selected-option mt-4" style={{ width: '100%' }}>
                                             <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30, width: '100%' }} type="text" placeholder="Order Note or message (If any)" onChange={this.handleChangeOrderNote} className="adresses-input" ></textarea>
                                         </div>

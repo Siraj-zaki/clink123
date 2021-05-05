@@ -100,7 +100,7 @@ class AddingToCart extends React.Component {
         dup.quantity = this.state.quantity;
         dup.productUnit = this.state.productUnit;
         this.props.addToCart(dup);
-        toast.warn("Successfully Item Added",{
+        toast.dark("Successfully Item Added",{
             style:{fontSize:13},
             className: 'dark-toast',
             autoClose: 5000
@@ -240,7 +240,7 @@ class AddingToCart extends React.Component {
 
                                         <li className="size-selector mt-5">
                                         <div>
-                                            <input type="radio" className="m-3 ml-5" id="t-option" name="selector" value={r1.id} onChange={(e)=>this.onChange(e)} />
+                                            <input type="radio"  className="m-3 ml-5" id="t-option" name="selector" value={r1.id} onChange={(e)=>this.onChange(e)} />
                                             <span className="li-size m-3">{r1.unit}</span>
                                         </div>
                                         <div>

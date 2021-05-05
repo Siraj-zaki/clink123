@@ -95,7 +95,9 @@ class Navbar extends React.Component {
     console.log("asdasdasdasd");
     e.preventDefault();
     console.log("asdasdasdasd", this.validateForm());
-    if (this.validateForm()) {
+    if (this.state.age <= 20) {
+      return toast.dark("AGE WILL BE GREATER OR EQUAL TO 21")
+    } else if (this.validateForm()) {
       console.log(this.state);
 
       try {
@@ -110,7 +112,7 @@ class Navbar extends React.Component {
           .then((re1) => {
             console.log(re1);
             if (re1?.data?.success) {
-              return toast.warn("User Registered", {
+              return toast.dark("User Registered", {
                 style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
@@ -120,7 +122,7 @@ class Navbar extends React.Component {
 
             } else {
               console.log("errrrr", re1);
-              return toast.warn("Email Already Access", {
+              return toast.dark("Email Already Access", {
                 style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
@@ -156,7 +158,7 @@ class Navbar extends React.Component {
         console.log(customer.data.data);
         this.props.LOGIN_USER(customer.data.data)
         // console.log(this.props.cardItems)
-        return toast.warn("Login Successfully", {
+        return toast.dark("Login Successfully", {
           style: { fontSize: 13 },
           className: 'dark-toast',
           autoClose: 5000
@@ -171,6 +173,7 @@ class Navbar extends React.Component {
 
     } catch (error) {
       console.log(error.data);
+      return toast.dark("Email or Password Incorrect")
       console.log(error.response.data.message);
     }
     //    console.log("data1",customer);
@@ -184,7 +187,7 @@ class Navbar extends React.Component {
     if (!this.state.email) {
       // formIsValid = false;
       //   console.log("state empty");
-      return toast.warn("Email Not Correct", {
+      return toast.dark("Email Not Correct", {
         style: { fontSize: 13 },
         className: 'dark-toast',
         autoClose: 5000
@@ -208,7 +211,7 @@ class Navbar extends React.Component {
     }
 
     // if (this.state.age < 21  ){
-    //   return toast.warn("Your age is INVALID")
+    //   return toast.dark("Your age is INVALID")
     // }
 
 
@@ -340,7 +343,6 @@ class Navbar extends React.Component {
                           type="number"
                           id="pass1"
                           placeholder="Age"
-                          required
                         />
                       </div>
                       <div className="remember-me">
