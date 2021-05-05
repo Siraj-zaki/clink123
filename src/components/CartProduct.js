@@ -42,6 +42,7 @@ class CartProduct extends React.Component {
                                 <span className="cart-company" >{cart.Company}</span>
                                 <span className="cart.bottle" >{cart.Bottle}</span>
                                 <span className="cart-size">{cart.Size}</span>
+                                
                             </div>
                         </div>
                     )
