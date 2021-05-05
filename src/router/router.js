@@ -27,10 +27,7 @@ class ReactRouter extends React.Component {
         <Route path="/BlogDetail" component={BlogDetail} />
         <Route path="/Products" component={Products} />
         <Route path="/AddingToCart/:id" component={AddingToCart} />
-  
-       
-         <Route path="/Payment" component={Payment}/>
-     
+        <Route path="/Payment" component={Payment} />
         <Route path="/Devilvery" component={Devilvery} />
         <Route path="/Finished" component={Finished} />
         <Route path="/Contact" component={Shops} />
@@ -38,5 +35,4 @@ class ReactRouter extends React.Component {
     );
   }
 }
-
 export default ReactRouter;

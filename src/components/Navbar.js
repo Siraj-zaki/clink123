@@ -110,18 +110,22 @@ class Navbar extends React.Component {
           .then((re1) => {
             console.log(re1);
             if (re1?.data?.success) {
-              return toast.warn(re1.data.message, {
+              return toast.warn("User Registered", {
                 style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
-              });
+              },
+                this.setState({ toggler2: 0 })
+              );
+
             } else {
               console.log("errrrr", re1);
               return toast.warn("Email Already Access", {
                 style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
-              });
+              }
+              );
             }
 
 
@@ -156,7 +160,10 @@ class Navbar extends React.Component {
           style: { fontSize: 13 },
           className: 'dark-toast',
           autoClose: 5000
-        });
+        },
+          this.setState({ toggler1: 0 })
+        );
+
         console.log(customer);
 
       }
@@ -200,6 +207,11 @@ class Navbar extends React.Component {
       }
     }
 
+    // if (this.state.age < 21  ){
+    //   return toast.warn("Your age is INVALID")
+    // }
+
+
     if (!this.state.password) {
       //   formIsValid = false;
 
@@ -226,7 +238,8 @@ class Navbar extends React.Component {
   }
 
   render() {
-    console.log("LOGIN_USER1", this.props);
+    // console.log("LOGIN_USER1", this.props);
+    console.log(this.state.checked1, this.state.checked2);
 
     return (
       <>
@@ -350,7 +363,7 @@ class Navbar extends React.Component {
                               onChange={this.handleChecked}
                               className="checking m-1"
                               type="checkbox"
-                              required
+                              // required
                               id="checking-1"
                             />
                             <label
@@ -382,7 +395,7 @@ class Navbar extends React.Component {
                               onChange={this.handleChecked2}
                               className="checking m-1"
                               type="checkbox"
-                              required
+                              // required
                               id="checking-2"
                             />
                             <label

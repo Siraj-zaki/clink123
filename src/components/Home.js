@@ -8,25 +8,25 @@ import OurProducts from './OurProducts'
 import blogarrow from '../assets/blogarrow.png'
 import Blogs from './Blogs'
 import AskQuestions from './AskQuestions';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class Home extends React.Component {
 
- 
+
   constructor(props) {
     super(props);
     this.state = {
-      
+
       toggler: 1
-      
+
     };
     console.log(this.props.cardItems);
   }
 
-  
+
   render() {
     return (
-      <div className="Home bgimg-1" style={{ position: 'relative'}}>
+      <div className="Home bgimg-1" style={{ position: 'relative' }}>
         {
           this.state.toggler === 1 ?
             <>
@@ -36,7 +36,7 @@ class Home extends React.Component {
                   <li className="menu-li" style={{ fontSize: "5rem" }}>WE GOTTA ASK</li>
                   <li className="menu-li" style={{ fontSize: "4rem" }}>ARE YOU 21 OR ABOVE</li>
                   <div className="new-grid">
-                    <button className="signupbtn btn-2-new" style={{ color: 'white', border: '1px solid white ' }} >No , Leave</button>
+                    <button className="signupbtn btn-2-new" style={{ color: 'white', border: '1px solid white ' }} onClick={() => window.close()} >No , Leave</button>
                     <button onClick={() => this.setState({ toggler: 0 })} className="signupbtn btn-1-new">Yes I am</button>
 
                   </div>
