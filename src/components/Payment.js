@@ -173,17 +173,17 @@ class Payment extends React.Component {
 
     handleSubmit = async (event) => {
 
-       
+
         console.log(this.props);
         event.preventDefault();
 
         const { stripe, elements } = this.props;
         console.log(stripe);
         if (!stripe || !elements) {
-            return;
+            return toast.dark("PLEASE FILL FORM TO PROCEED");
+        } else if (this.props?.cardData.length === 0) {
+            return toast.dark("CART IS EMPTY")
         }
-
-
         try {
 
 
@@ -216,9 +216,11 @@ class Payment extends React.Component {
                     let customer = await addOrder(data)
                         .then((re1) => {
                             console.log(re1);
-
                             console.log(this.props);
-                            window.location.href = "/Products"
+                            toast.dark("PAYMENT PAID")
+                            setTimeout(() => {
+                                window.location.href = "/Products"
+                            }, 2000);
 
                         })
                         .catch(err => {
@@ -457,32 +459,24 @@ class Payment extends React.Component {
                                 </div>
                                 <div className="left-side-form">
                                     <div className="form-selected-option">
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="UserName" onChange={this.handleChangeName} className="adresses-input" style={{ width: '50rem' }} required />
+                                        <div className="form-selected-option mt-4">
+                                            <input type="text" placeholder="User Name" onChange={this.handleChangeName} className="adresses-input" style={{ width: '50rem' }} required />
                                         </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="ContactNumber" onChange={this.handleChangeNumber} className="adresses-input" style={{ width: '50rem' }} required />
+                                        <div className="form-selected-option mt-4">
+                                            <input type="text" placeholder="Contact Number" onChange={this.handleChangeNumber} className="adresses-input" style={{ width: '50rem' }} required />
                                         </div>
-                                        <div className="form-selected-option mt-5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {/* <input type="text" placeholder="PostalCode" className="adresses-input  " style={{ width: 'auto', minWidth: 'auto' }} /> */}
-                                            {/* <CardCvcElement className="addresses-input"  /> */}
-                                            <CardNumberElement options={CARD_ELEMENT_OPTIONS} className='adresses-input' />
-                                            {/* <CardExpiryElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/> */}
-                                            {/* <input type="text" placeholder="Csv" className="adresses-input " style={{ width: 'auto', minWidth: 'auto' }} /> */}
+                                        <div style={{ width: "100%" }}>
+                                            <div className="form-selected-option " style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
+                                                <CardNumberElement options={CARD_ELEMENT_OPTIONS} className='adresses-input mt-4' />
+                                                <CardExpiryElement options={CARD_ELEMENT_OPTIONS} className='adresses-input adresses-input-2 mt-4' />
+                                            </div>
+                                            {/* <div className="form-selected-option mt-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
+
+                                            </div> */}
                                         </div>
-                                        <div className="form-selected-option mt-5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {/* <input type="text" placeholder="PostalCode" className="adresses-input  " style={{ width: 'auto', minWidth: 'auto' }} /> */}
-                                            {/* <CardCvcElement className="addresses-input"  /> */}
-                                            <CardExpiryElement options={CARD_ELEMENT_OPTIONS} className='adresses-input' />
-                                            {/* <CardExpiryElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/> */}
-                                            {/* <input type="text" placeholder="Csv" className="adresses-input " style={{ width: 'auto', minWidth: 'auto' }} /> */}
-                                        </div>
-                                        <div className="form-selected-option mt-5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {/* <CardElement className="adresses-input  " /> */}
-                                            {/* <CardNumberElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/>
-                                        <CardExpiryElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/> */}
-                                            <CardCvcElement options={CARD_ELEMENT_OPTIONS} className='adresses-input' />
-                                            <div style={{ width: 'auto', minWidth: 'auto' }} >
+                                        <div className="form-selected-option " style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
+                                            <CardCvcElement options={CARD_ELEMENT_OPTIONS} className='adresses-input mt-4' />
+                                            <div className="mt-4" style={{ width: 'auto', minWidth: 'auto' }} >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="172.2" height="76" viewBox="0 0 172.2 76">
                                                     <g id="Group_6254" data-name="Group 6254" transform="translate(-636.8 -692)">
                                                         <text id="Card_Number" data-name="Card Number" transform="translate(685 747)" fill="#a2a2a2" font-size="18" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0"></tspan></text>
@@ -495,22 +489,24 @@ class Payment extends React.Component {
                                                     </g>
                                                 </svg>
                                             </div>
-                                            <div className="form-selected-option mt-5" style={{ width: '100%' }}>
-                                                <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30, width: '100%' }} type="text" placeholder="Order Note or message (If any)" onChange={this.handleChangeOrderNote} className="adresses-input" ></textarea>
+                                        </div>
+
+                                        <div className="form-selected-option mt-4" style={{ width: '100%' }}>
+                                            <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30, width: '100%' }} type="text" placeholder="Order Note or message (If any)" onChange={this.handleChangeOrderNote} className="adresses-input" ></textarea>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', width: '100%' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                                                <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}>that, I am 21 above</label> </label>
                                             </div>
-                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', width: '100%' }}>
-                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                                                    <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}>that, I am 21 above</label> </label>
-                                                </div>
-                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                                                    <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}> terms & conditions and Privacy policy</label> </label>
-                                                </div>
+                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                                                <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}> terms & conditions and Privacy policy</label> </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+
                         </div>
                         <div className="cart-right-side" style={{ zIndex: 1, width: '100%', paddingLeft: '4rem' }}>
                             <div className="selected-items-div">
@@ -579,7 +575,7 @@ const Devilvery = (props) => (
 
     <ElementsConsumer>
         {({ stripe, elements }) => (
-           
+
             <Payment stripe={stripe} elements={elements} cardData={props.cartData} customerAddress={props.customerAddress} emptycard={props.emptyFromCart} />
         )}
     </ElementsConsumer>

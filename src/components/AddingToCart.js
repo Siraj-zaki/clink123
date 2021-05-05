@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { addToCart } from '../services/Store/Actions/cartActions';
 import { injectStyle } from "react-toastify/dist/inject-style";
 import { ToastContainer, toast } from "react-toastify";
+import { getProduct } from "./../Service/service";
 
 class AddingToCart extends React.Component {
     
@@ -32,7 +33,8 @@ class AddingToCart extends React.Component {
         product: [],
         quantity: 1,unit:[],
         items:'',
-        productUnit:[]
+        productUnit:[],
+        relatedproduct:[]
     }
     this.onChange = this.onChange.bind(this);
     }
@@ -76,7 +78,8 @@ class AddingToCart extends React.Component {
 
     async componentDidMount() {
         const id = this.props.match.params.id;
-
+        let product1 = await getProduct();
+        this.setState({relatedproduct:product1?.data?.result})
         if(this.props?.cartData && this.props?.cartData.length && this.props?.cartData.find(pro => pro.id === id)){
             this.setState({quantity: this.props?.cartData.find(pro => pro.id === id).quantity})
         }
@@ -99,8 +102,9 @@ class AddingToCart extends React.Component {
         let dup = this.state.product;
         dup.quantity = this.state.quantity;
         dup.productUnit = this.state.productUnit;
+        console.log('123',dup);
         this.props.addToCart(dup);
-        toast.warn("Successfully Item Added",{
+        toast.dark("Successfully Item Added",{
             style:{fontSize:13},
             className: 'dark-toast',
             autoClose: 5000
@@ -121,8 +125,11 @@ class AddingToCart extends React.Component {
     }
 
     render() {
+        console.log(this.state.productUnit);
         console.log(this.state.unit);
-        let item = this.state.unit.filter(c => c.id === this.state.items)
+        console.log(this.state.relatedproduct);
+        console.log(this.state.items);
+        let item = this.state.unit.filter(c => c.id == this.state.items)
        
         console.log(item);
 
@@ -240,7 +247,7 @@ class AddingToCart extends React.Component {
 
                                         <li className="size-selector mt-5">
                                         <div>
-                                            <input type="radio" className="m-3 ml-5" id="t-option" name="selector" value={r1.id} onChange={(e)=>this.onChange(e)} />
+                                            <input type="radio"  className="m-3 ml-5" id="t-option" name="selector" value={r1.id} onChange={(e)=>this.onChange(e)} />
                                             <span className="li-size m-3">{r1.unit}</span>
                                         </div>
                                         <div>
@@ -279,9 +286,9 @@ class AddingToCart extends React.Component {
                             </div>
                             <Slider {...settings}>
                                 {
-                                    Array(10).fill().map((item, index) =>
+                                    this.state.relatedproduct.map((item, index) =>
                                         <div>
-                                            <CartProduct />
+                                            <CartProduct product={item} />
                                         </div>
                                     )
                                 }

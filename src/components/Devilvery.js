@@ -10,212 +10,249 @@ import { connect } from "react-redux";
 import Navbar from './Navbar'
 import { motion } from "framer-motion"
 import SelectedItem from './SelectedItem'
-import { addDelivery ,getDeliverybycustomer,addOrder,addCustomerDetail} from "./../Service/service";
+import { addDelivery, getDeliverybycustomer, addOrder, addCustomerDetail } from "./../Service/service";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from './Footer';
 import { customerAddres } from '../services/Store/Actions/cartActions';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 class Devilvery extends React.Component {
     constructor(props) {
         super(props);
-    this.state = {
-        hearttoggler: false,
-        counter: 0,
-        toggler: 0,
-        radiobtn: '',
-        radiobtn1: '',
-        name:'',
-        addressname:'',
-        openaddress:'',
-        city:'',
-        area:'',
-        postalcode:'',
-        userID:'',
-        idcard:'',
-        customer_address:[],
-        customer_id:"",
-      errors: {},
+        this.state = {
+            hearttoggler: false,
+            counter: 0,
+            toggler: 0,
+            radiobtn: '',
+            radiobtn1: '',
+            name: '',
+            addressname: '',
+            openaddress: '',
+            city: '',
+            area: '',
+            postalcode: '',
+            userID: '',
+            idcard: '',
+            customer_address: [],
+            customer_id: false,
+            errors: {},
+            number: '',
+            filterData: [],
+            ani: 1
 
-        number:'',
-        filterData:[]
+        }
+
+
+
+        console.log(this.props.user);
+        this.submituserRegistrationForm = this.submituserRegistrationForm.bind(
+            this
+        );
+        this.handleChangeAddress = this.handleChangeAddress.bind(this);
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleChangeCity = this.handleChangeCity.bind(this);
+        this.handleChangeArea = this.handleChangeArea.bind(this);
+        this.handleChangeidCARD = this.handleChangeidCARD.bind(this);
+        this.handleChangeNumber = this.handleChangeNumber.bind(this);
+        this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
+        this.handleSaveAddress = this.handleSaveAddress.bind(this);
 
     }
 
-   
-    console.log(this.props.user);
-    this.submituserRegistrationForm = this.submituserRegistrationForm.bind(
-        this
-      );
-    this.handleChangeAddress = this.handleChangeAddress.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangeCity = this.handleChangeCity.bind(this);
-    this.handleChangeArea = this.handleChangeArea.bind(this);
-    this.handleChangeidCARD = this.handleChangeidCARD.bind(this);
-    this.handleChangeNumber = this.handleChangeNumber.bind(this);
-    this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
-    this.handleSaveAddress = this.handleSaveAddress.bind(this);
+    async componentDidMount() {
 
-}
 
-async componentDidMount(){
-    
-
-    let customer = await getDeliverybycustomer(this.props?.user.user_ID)
-    console.log(customer.data.result);
-    this.setState({customer_address:customer.data.result})
-}
+        let customer = await getDeliverybycustomer(this.props?.user.user_ID)
+        console.log(customer.data.result);
+        this.setState({ customer_address: customer.data.result })
+    }
 
     async submituserRegistrationForm(e) {
-        console.log("asdasdasdasd");
         e.preventDefault();
-        console.log("asdasdasdasd", this.validateForm());
-        if (this.validateForm()) {
-          console.log(this.state);
-    
-          try {
-            let data = {
-                addressName: this.state.addressname,
-                name: this.state.name,
-                business: this.state.radiobtn,
-                business: this.state.radiobtn1,
-                number: this.state.number,
-              postalcode: this.state.postalcode,
-              address: this.state.openaddress,
-              city: this.state.city,
-              area: this.state.area,
-              userID: this.props?.user?.user_ID,
-              
-            };
-            console.log("data", data);
+        if (this.state.addressname === "") {
 
-        
+            return toast.dark("PLEASE ENTER ADDRESS NAME")
+
+        } else if (this.state.name === "") {
+            return toast.dark("PLEASE ENTER NAME")
+        } else if (this.state.openaddress === '') {
+            return toast.dark("PLEASE ENTER OPEN ADDRESS")
+        } else if (this.state.city === "") {
+            return toast.dark("PLEASE ENTER CITY")
+        } else if (this.state.area === "") {
+            return toast.dark("PLEASE ENTER  AREA")
+        } else if (this.state.idcard === "") {
+            return toast.dark("PLEASE ENTER ID CARD NUMBER")
+        } else if (this.state.postalcode === "") {
+            return toast.dark("PLEASE ENTER POSTAL CODE")
+        } else if (this.state.number === "") {
+            return toast.dark("PLEASE ENTER TELEPHONE NUMBER")
+        } else if (this.validateForm()) {
+            console.log(this.state);
+            try {
+                let data = {
+                    addressName: this.state.addressname,
+                    name: this.state.name,
+                    business: this.state.radiobtn,
+                    business: this.state.radiobtn1,
+                    number: this.state.number,
+                    postalcode: this.state.postalcode,
+                    address: this.state.openaddress,
+                    city: this.state.city,
+                    area: this.state.area,
+                    userID: this.props?.user?.user_ID,
+
+                };
+
+                console.log("asdasdasdasd");
+                e.preventDefault();
+                console.log("asdasdasdasd", this.validateForm());
+
+                console.log("data", data);
 
 
-            let customer = await addDelivery(data)
-              .then((re1) => {
-                console.log(re1);
-                if (re1?.data?.success) {
-                  return toast(re1.data.message, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  });
-                } else {
-                  console.log("errrrr", re1);
-                  return toast("Email Already Exists", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  });
-                }
-    
-    
-              })
-              .catch(err => {
-                console.log("er", err);
-              })
-          }
-          catch (error) {
-            console.log(error);
-          }
+
+
+                let customer = await addDelivery(data)
+                    .then((re1) => {
+                        console.log(re1);
+                        if (re1?.data?.success) {
+                            return toast(re1.data.message, {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            },
+                                setTimeout(() => {
+                                    window.location.reload(false)
+                                }, 1000)
+                            );
+                        } else {
+                            console.log("errrrr", re1);
+                            return toast("Email Already Exists", {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        }
+
+
+                    })
+                    .catch(err => {
+                        console.log("er", err);
+                    })
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
-      }
-      validateForm() {
+    }
+
+    validateForm() {
         let errors = {};
-    
+
         let formIsValid = true;
-    
+
         if (!this.state.addressname) {
-          // formIsValid = false;
-          //   console.log("state empty");
-          return toast("🦄 Wow so easy!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-    
-          errors["email"] = "*Please enter your address .";
+            // formIsValid = false;
+            //   console.log("state empty");
+            return toast("🦄 Wow so easy!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+
+            errors["email"] = "*Please enter your address .";
         }
-    
-      
-    
+
+
+
         if (!this.state.name) {
-          //   formIsValid = false;
-    
-          errors["password"] = "*Please enter your name.";
+            //   formIsValid = false;
+
+            errors["password"] = "*Please enter your name.";
         }
-    
-    
+
+
         this.setState({
-          errors: errors,
+            errors: errors,
         });
         console.log("formIsValid", formIsValid);
         return formIsValid;
-      }
-      handleChangeAddress(e) {
+    }
+    handleChangeAddress(e) {
         console.log(e.target.value);
-    
         this.setState({ addressname: e.target.value });
-      }
-      handleChangeName(e) {
+    }
+    // handleChangeOpenAddress1(e) {
+    //     console.log(e.target.value);
+    //     this.setState({ openaddress: e.target.value });
+    // }
+    handleChangeName(e) {
         console.log(e.target.value);
-    
+
         this.setState({ name: e.target.value });
-      }  handleChangeCity(e) {
+    } handleChangeCity(e) {
         console.log(e.target.value);
-    
+
         this.setState({ city: e.target.value });
-      }  handleChangeArea(e) {
+    } handleChangeArea(e) {
         console.log(e.target.value);
-    
+
         this.setState({ area: e.target.value });
-      }  handleChangeidCARD(e) {
+    } handleChangeidCARD(e) {
         console.log(e.target.value);
-    
+
         this.setState({ idcard: e.target.value });
-      }  handleChangeNumber(e) {
+    } handleChangeNumber(e) {
         console.log(e.target.value);
-    
+
         this.setState({ number: e.target.value });
-      }  handleChangePostalCode(e) {
+    } handleChangePostalCode(e) {
         console.log(e.target.value);
-    
+
         this.setState({ postalcode: e.target.value });
-      }
-     async handleSaveAddress(e) {
-     
-    
+    }
+    async handleSaveAddress(e) {
+
+
         this.setState({ customer_id: e.target.value });
-        
-       setTimeout(() => {
-           
-           let filtercustomer= this.state?.customer_address?.filter(r1=>r1?.id==this.state?.customer_id)
-                 console.log(filtercustomer);
-                 this.props.customerAddres(filtercustomer)
-       }, 200);
-        
-    
-      }
-      
+
+        setTimeout(() => {
+
+            let filtercustomer = this.state?.customer_address?.filter(r1 => r1?.id == this.state?.customer_id)
+            console.log(filtercustomer);
+            this.props.customerAddres(filtercustomer)
+        }, 200);
+
+
+    }
+    DevilveryAddress = () => {
+        if (this.state.customer_id === false) {
+            return toast.dark("Please Select Address")
+        } else if (this.props?.cartData.length === 0) {
+            return toast.dark("CART IS EMPTY")
+        } else window.location.href = "/Payment"
+
+    }
+
 
     render() {
-       let total_amount=0
-      console.log(this.props);
- 
+        let total_amount = 0
+        console.log(this.props);
+
 
 
 
@@ -342,7 +379,7 @@ async componentDidMount(){
         const ratingChanged = (newRating) => {
             console.log(newRating);
         };
-        
+
 
         function SampleNxtArrow(props) {
             const { className, style, onClick } = props;
@@ -422,21 +459,21 @@ async componentDidMount(){
 
                 <div className="products new-padding new-class-product" style={{ justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row' }} >
                     <div style={{ display: "flex", justifyContent: 'center', alignItems: "center", flexDirection: 'column', position: 'relative' }} >
-                        <div className="slider-div-1" animation={this.state.toggler} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
+                        <div className="slider-div-1" ani={this.state.ani} animation={this.state.toggler} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
                             <div style={{ margin: 30 }} >
                                 <span className="slider-heading" style={{ fontWeight: 400 }} >Delivery Information</span>
                             </div>
                             <div className="left-side-form">
-                            <div className="form-selected-option">
+                                <div className="form-selected-option">
                                     <label htmlFor="chooseaddress" className="label-for-select" >Delivery Adresses </label>
                                     <select type="text" value={this.state?.customer_id} onChange={this.handleSaveAddress} className="adresses-input">
-                            <option   >Please select Option</option>
-                                 
-                                  {  this.state.customer_address.map((cat, index) =>
-                            <option key={index} value={cat?.id} >{cat.addressName}</option>
-                            
-                          )}
-                                      
+                                        <option>Please select Option</option>
+
+                                        {this.state.customer_address.map((cat, index) =>
+                                            <option key={index} value={cat?.id} >{cat.addressName}</option>
+
+                                        )}
+
                                     </select>
                                 </div>
                                 {/* <div className="form-selected-option">
@@ -450,65 +487,68 @@ async componentDidMount(){
                                     </select>
                                 </div> */}
                                 <div className="mt-5"  >
-                                    <button className="add-new-btn" onClick={() => this.setState({ toggler: 1 })} >Add New</button>
+                                    <button className="add-new-btn" onClick={() => this.setState({ toggler: 1, ani: 1 })} >Add New</button>
                                 </div>
                             </div>
                         </div>
                         {
                             this.state.toggler === 1 ?
-                                <div className="slider-div-1 new-animation" style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
+                                <div className="slider-div-1 new-animation" ani={this.state.ani} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
                                     <div style={{ margin: 30 }} >
                                         <span className="slider-heading" style={{ fontWeight: 400 }} >Delivery Information</span>
                                     </div>
                                     <form onSubmit={this.submituserRegistrationForm}>
-                                    <div className="left-side-form">
-                                        <div className="form-selected-option">
-                                            <input type="text" placeholder="Address Name" onChange={this.handleChangeAddress} className="adresses-input" />
-                                        </div>
-                                        <div style={{ display: 'flex', marginTop: 20, alignItems: 'center', justifyContent: 'flex-start', width: "100%" }}>
-                                            <input onClick={(e) => this.setState({ radiobtn1: e.target.checked, radiobtn: false })} className="m-3" type="radio" name="Radio" id="radio-1" />
-                                            <label className="m-3 personal-radio" htmlFor="radio-1">Personal</label>
-                                        </div>
-                                        <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: "100%" }}>
-                                            <input onClick={(e) => this.setState({ radiobtn: e.target.checked ? true : false, radiobtn1: false })} className="m-3" type="radio" name="Radio" id="radio-2" />
-                                            <label className="m-3 personal-radio" htmlFor="radio-2">Company</label>
-                                        </div>
-                                        {
-                                            this.state.radiobtn === true ?
-                                                <div className="form-selected-option mt-5">
-                                                    <input type="text" placeholder="Company Tax Number" className="adresses-input" />
-                                                </div>
-                                                :
-                                                <div className="form-selected-option mt-5">
-                                                    <input type="text" placeholder="Name and Surname" onChange={this.handleChangeName}  className="adresses-input" />
-                                                </div>
+                                        <div className="left-side-form">
+                                            <div className="form-selected-option">
+                                                <input type="text" placeholder="Address Name" onChange={this.handleChangeAddress} className="adresses-input" />
+                                            </div>
+                                            <div style={{ display: 'flex', marginTop: 20, alignItems: 'center', justifyContent: 'flex-start', width: "100%" }}>
+                                                <input onClick={(e) => this.setState({ radiobtn1: e.target.checked, radiobtn: false })} className="m-3" type="radio" name="Radio" id="radio-1" />
+                                                <label className="m-3 personal-radio" htmlFor="radio-1">Personal</label>
+                                            </div>
+                                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: "100%" }}>
+                                                <input onClick={(e) => this.setState({ radiobtn: e.target.checked ? true : false, radiobtn1: false })} className="m-3" type="radio" name="Radio" id="radio-2" />
+                                                <label className="m-3 personal-radio" htmlFor="radio-2">Company</label>
+                                            </div>
+                                            {
+                                                this.state.radiobtn === true ?
+                                                    <div className="form-selected-option mt-5">
+                                                        <input type="text" placeholder="Company Tax Number" className="adresses-input" />
+                                                    </div>
+                                                    :
+                                                    <div className="form-selected-option mt-5">
+                                                        <input type="text" placeholder="Name and Surname" onChange={this.handleChangeName} className="adresses-input" />
+                                                    </div>
 
-                                        }
+                                            }
 
-                                        <div className="form-selected-option mt-5">
-                                            <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30 }} type="text" placeholder="Open Adress" onChange={this.handleChangeAddress}  className="adresses-input" ></textarea>
-                                        </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="City" onChange={this.handleChangeCity} className="adresses-input" />
-                                        </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="Area" className="adresses-input" onChange={this.handleChangeArea}  />
-                                        </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="ID Card Number" className="adresses-input" onChange={this.handleChangeidCARD}  />
-                                        </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="Postal Code" className="adresses-input" onChange={this.handleChangePostalCode}  />
-                                        </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="Telephone Number" className="adresses-input" onChange={this.handleChangeNumber}  />
-                                        </div>
+                                            <div className="form-selected-option mt-5">
+                                                <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30 }} type="text" placeholder="Open Adress" onChange={(e) => this.setState({ openaddress: e.target.value })} className="adresses-input" ></textarea>
+                                            </div>
+                                            <div className="form-selected-option mt-5">
+                                                <input type="text" placeholder="City" onChange={this.handleChangeCity} className="adresses-input" />
+                                            </div>
+                                            <div className="form-selected-option mt-5">
+                                                <input type="text" placeholder="Area" className="adresses-input" onChange={this.handleChangeArea} />
+                                            </div>
+                                            <div className="form-selected-option mt-5">
+                                                <input type="number" placeholder="ID Card Number" className="adresses-input" onChange={this.handleChangeidCARD} />
+                                            </div>
+                                            <div className="form-selected-option mt-5">
+                                                <input type="number" placeholder="Postal Code" className="adresses-input" onChange={this.handleChangePostalCode} />
+                                            </div>
+                                            <div className="form-selected-option mt-5">
+                                                <input type="number" placeholder="Telephone Number" className="adresses-input" onChange={this.handleChangeNumber} />
+                                            </div>
 
-                                        <div className="mt-5"  >
-                                            <button className="add-new-btn" >Add Address</button>
+                                            <div className="mt-5"  >
+                                                <button className="add-new-btn"  >Add Address</button>
+                                            </div>
                                         </div>
+                                    </form>
+                                    <div className="mt-5"  >
+                                        <button className="add-new-btn" onClick={() => this.setState({ ani: 2 })} >Go Back</button>
                                     </div>
-                                </form>
                                 </div>
                                 : null
                         }
@@ -519,23 +559,23 @@ async componentDidMount(){
                                 <img src={cart} alt="" />
                                 <span className="cart-heading-heading">Cart</span>
                             </div>
-                            { this.props?.cartData && this.props?.cartData.length ? 
-                            this.props?.cartData.map((pro,ind) => (
-                                
-                                total_amount+=(parseInt(pro.productUnit[0].cvr)+parseInt(pro.productUnit[0].itemPrice)) * pro.quantity ,
+                            {this.props?.cartData && this.props?.cartData.length ?
+                                this.props?.cartData.map((pro, ind) => (
 
-                                <SelectedItem
-                                    key={ind}
-                                    id={pro?.id}
-                                    heading={pro?.itemName}
-                                    headingsmall={pro?.storeName}
-                                    size={pro.productUnit[0].unit}
-                                    price={parseInt(pro.productUnit[0].cvr)+parseInt(pro.productUnit[0].itemPrice) }
-                                    quantity={pro.quantity}
-                                    imgsrc={pro?.imgUrl}
-                                />
-                             
-                            )):null}
+                                    total_amount += (parseInt(pro.productUnit[0].cvr) + parseInt(pro.productUnit[0].itemPrice)) * pro.quantity,
+
+                                    <SelectedItem
+                                        key={ind}
+                                        id={pro?.id}
+                                        heading={pro?.itemName}
+                                        headingsmall={pro?.storeName}
+                                        size={pro.productUnit[0].unit}
+                                        price={parseInt(pro.productUnit[0].cvr) + parseInt(pro.productUnit[0].itemPrice)}
+                                        quantity={pro.quantity}
+                                        imgsrc={pro?.imgUrl}
+                                    />
+
+                                )) : null}
                             <div className="inner-cart-div mt-5 border-top pt-5">
                                 <div className="cart-left-side">
                                     <img src={this.props.imgsrc} alt="" />
@@ -555,7 +595,7 @@ async componentDidMount(){
 
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
                                 <span onClick={() => window.location.href = "/CartPage"} className="go-back" style={{ fontSize: '18px' }}  >Go Back</span>
-                                <button className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }} onClick={() => window.location.href = "/Payment"}  >Proceed to Payment </button>
+                                <button className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270, margin: '6rem' }} onClick={this.DevilveryAddress}   >Proceed to Payment </button>
                                 <span className="remove-all" >Remove all </span>
                             </div>
                         </div>
@@ -578,13 +618,13 @@ async componentDidMount(){
 };
 const mapStateToProps = (state) => {
     return {
-      user: state.AuthReducer.user,
-      cartData: state.CartReducer.cartData,
-      customerAddress: state.CartReducer.customerAddress,
-     
+        user: state.AuthReducer.user,
+        cartData: state.CartReducer.cartData,
+        customerAddress: state.CartReducer.customerAddress,
+
     };
-  };
- 
+};
+
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -206,6 +206,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: scroll;
     background: #f7f6f1;
     background-image: url('../assets/signupimg.png');
     background-position: center;
@@ -222,7 +223,9 @@
 }
 
 .menu {
+    overflow: scroll;
     position: fixed;
+    min-height: 600px!important;
     height: 100%;
     width: 56.6%;
     right: 0;
@@ -242,7 +245,7 @@
 .menu-li {
     font-family: Montserrat;
     font-weight: normal;
-    font-size: 3.5rem;
+    font-size: 2rem;
     text-align: left;
     color: #f7f6f1;
     list-style: none;
@@ -294,6 +297,7 @@ li {
 .menu[ani="1"] {
     animation-name: menu;
     animation-duration: 1s;
+    min-height: 600px!important;
 }
 
 .menu-back[ani="0"] {
@@ -385,7 +389,7 @@ li {
     width: 33%;
     display: flex;
     justify-content: center;
-    /* height: 2px; */
+    height: 2px;
     align-items: center;
     z-index: 1;
 }
@@ -425,7 +429,7 @@ li {
 .input-search-bar {
     width: 48rem;
     min-width: 220px;
-    height: 7rem;
+    height: 5rem;
     min-height: 40px;
     padding-left: 20px;
     /* font-family: Montserrat;
@@ -440,8 +444,8 @@ li {
 }
 
 .btn-nav {
-    width: 22rem;
-    height: 7rem;
+    width: 19rem;
+    height: 5rem;
     border-radius: 5px;
     background: white;
     border: 2px solid var(--maincolor);

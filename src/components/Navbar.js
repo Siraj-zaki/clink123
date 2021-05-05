@@ -61,16 +61,12 @@ class Navbar extends React.Component {
     this.formhandler1 = this.formhandler1.bind(this);
   }
 
-  //    componentDidMount() {
-  //     const handler = e => this.setState({ matches: e.matches });
-  //     window.matchMedia("(max-width: 768px)").addListener(handler);
+  componentDidMount() {
+    const handler = e => this.setState({ matches: e.matches });
+    window.matchMedia("(max-width: 768px)").addListener(handler);
 
-  //     try {
-  //         customerSignUp(data).then(response => console.log(response));
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  // }
+  }
+
 
   handleChangeEmail(e) {
     console.log(e.target.value);
@@ -99,7 +95,9 @@ class Navbar extends React.Component {
     console.log("asdasdasdasd");
     e.preventDefault();
     console.log("asdasdasdasd", this.validateForm());
-    if (this.validateForm()) {
+    if (this.state.age <= 20) {
+      return toast.dark("AGE WILL BE GREATER OR EQUAL TO 21")
+    } else if (this.validateForm()) {
       console.log(this.state);
 
       try {
@@ -114,18 +112,22 @@ class Navbar extends React.Component {
           .then((re1) => {
             console.log(re1);
             if (re1?.data?.success) {
-              return  toast.warn(re1.data.message,{
-                style:{fontSize:13},
+              return toast.dark("User Registered", {
+                style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
-              });
+              },
+                this.setState({ toggler2: 0 })
+              );
+
             } else {
               console.log("errrrr", re1);
-              return  toast.warn("Email Already Access",{
-                style:{fontSize:13},
+              return toast.dark("Email Already Access", {
+                style: { fontSize: 13 },
                 className: 'dark-toast',
                 autoClose: 5000
-              });
+              }
+              );
             }
 
 
@@ -156,18 +158,23 @@ class Navbar extends React.Component {
         console.log(customer.data.data);
         this.props.LOGIN_USER(customer.data.data)
         // console.log(this.props.cardItems)
-        return  toast.warn("Login Successfully",{
-          style:{fontSize:13},
+        return toast.dark("Login Successfully", {
+          style: { fontSize: 13 },
           className: 'dark-toast',
           autoClose: 5000
-        });
+        },
+        window.location.href = "/Products",
+          this.setState({ toggler1: 0 })
+        );
+
         console.log(customer);
 
       }
 
 
     } catch (error) {
-      console.log(error.data);
+      console.log(error);
+      return toast.dark("Email or Password Incorrect")
       console.log(error.response.data.message);
     }
     //    console.log("data1",customer);
@@ -181,8 +188,8 @@ class Navbar extends React.Component {
     if (!this.state.email) {
       // formIsValid = false;
       //   console.log("state empty");
-      return  toast.warn("Email Not Correct",{
-        style:{fontSize:13},
+      return toast.dark("Email Not Correct", {
+        style: { fontSize: 13 },
         className: 'dark-toast',
         autoClose: 5000
       });
@@ -203,6 +210,11 @@ class Navbar extends React.Component {
         errors["email"] = "*Please enter valid email-ID.";
       }
     }
+
+    // if (this.state.age < 21  ){
+    //   return toast.dark("Your age is INVALID")
+    // }
+
 
     if (!this.state.password) {
       //   formIsValid = false;
@@ -230,7 +242,8 @@ class Navbar extends React.Component {
   }
 
   render() {
-    console.log("LOGIN_USER1", this.props);
+    // console.log("LOGIN_USER1", this.props);
+    console.log(this.state.checked1, this.state.checked2);
 
     return (
       <>
@@ -331,7 +344,6 @@ class Navbar extends React.Component {
                           type="number"
                           id="pass1"
                           placeholder="Age"
-                          required
                         />
                       </div>
                       <div className="remember-me">
@@ -354,7 +366,7 @@ class Navbar extends React.Component {
                               onChange={this.handleChecked}
                               className="checking m-1"
                               type="checkbox"
-                              required
+                              // required
                               id="checking-1"
                             />
                             <label
@@ -386,7 +398,7 @@ class Navbar extends React.Component {
                               onChange={this.handleChecked2}
                               className="checking m-1"
                               type="checkbox"
-                              required
+                              // required
                               id="checking-2"
                             />
                             <label
@@ -679,7 +691,7 @@ class Navbar extends React.Component {
               className="left-side-nav"
               style={{ width: this.state.matches ? "100%" : "33%" }}
             >
-              <div style={{ height: this.state.matches ? "50px" : "110px" }}>
+              <div style={{ height: this.state.matches ? "50px" : "100px" }}>
                 <Logo mainpage />
               </div>
             </div>
