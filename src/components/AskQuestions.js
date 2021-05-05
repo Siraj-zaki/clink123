@@ -79,7 +79,7 @@ class AskQuestions extends React.Component {
                             </Accordion>
                         </div>
                     </div>
-                    <span className="section-products-h1 mt-5" style={{ zIndex: 20, position: 'relative',fontWeight:600 }}>Blogs and News</span>
+                    
                     
 
                 </div>
