@@ -38,9 +38,11 @@ class Devilvery extends React.Component {
             customer_id: false,
             errors: {},
             number: '',
-            filterData: []
+            filterData: [],
+            ani: 1
 
         }
+
 
 
         console.log(this.props.user);
@@ -67,12 +69,27 @@ class Devilvery extends React.Component {
     }
 
     async submituserRegistrationForm(e) {
-        console.log("asdasdasdasd");
         e.preventDefault();
-        console.log("asdasdasdasd", this.validateForm());
-        if (this.validateForm()) {
-            console.log(this.state);
+        if (this.state.addressname === "") {
 
+            return toast.dark("PLEASE ENTER ADDRESS NAME")
+
+        } else if (this.state.name === "") {
+            return toast.dark("PLEASE ENTER NAME")
+        } else if (this.state.openaddress === '') {
+            return toast.dark("PLEASE ENTER OPEN ADDRESS")
+        } else if (this.state.city === "") {
+            return toast.dark("PLEASE ENTER CITY")
+        } else if (this.state.area === "") {
+            return toast.dark("PLEASE ENTER  AREA")
+        } else if (this.state.idcard === "") {
+            return toast.dark("PLEASE ENTER ID CARD NUMBER")
+        } else if (this.state.postalcode === "") {
+            return toast.dark("PLEASE ENTER POSTAL CODE")
+        } else if (this.state.number === "") {
+            return toast.dark("PLEASE ENTER TELEPHONE NUMBER")
+        } else if (this.validateForm()) {
+            console.log(this.state);
             try {
                 let data = {
                     addressName: this.state.addressname,
@@ -87,6 +104,11 @@ class Devilvery extends React.Component {
                     userID: this.props?.user?.user_ID,
 
                 };
+
+                console.log("asdasdasdasd");
+                e.preventDefault();
+                console.log("asdasdasdasd", this.validateForm());
+
                 console.log("data", data);
 
 
@@ -104,7 +126,11 @@ class Devilvery extends React.Component {
                                 pauseOnHover: true,
                                 draggable: true,
                                 progress: undefined,
-                            });
+                            },
+                                setTimeout(() => {
+                                    window.location.reload(false)
+                                }, 1000)
+                            );
                         } else {
                             console.log("errrrr", re1);
                             return toast("Email Already Exists", {
@@ -127,6 +153,12 @@ class Devilvery extends React.Component {
             catch (error) {
                 console.log(error);
             }
+        }
+    }
+    Address = () => {
+        if (this.state.addressname === null) {
+            return toast.dark("Please Add Address Name")
+
         }
     }
     validateForm() {
@@ -167,9 +199,12 @@ class Devilvery extends React.Component {
     }
     handleChangeAddress(e) {
         console.log(e.target.value);
-
         this.setState({ addressname: e.target.value });
     }
+    // handleChangeOpenAddress1(e) {
+    //     console.log(e.target.value);
+    //     this.setState({ openaddress: e.target.value });
+    // }
     handleChangeName(e) {
         console.log(e.target.value);
 
@@ -211,7 +246,7 @@ class Devilvery extends React.Component {
     }
     DevilveryAddress = () => {
         if (this.state.customer_id === false) {
-            return toast.warn("Please Select Address")
+            return toast.dark("Please Select Address")
         } else window.location.href = "/Payment"
 
     }
@@ -427,7 +462,7 @@ class Devilvery extends React.Component {
 
                 <div className="products new-padding new-class-product" style={{ justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row' }} >
                     <div style={{ display: "flex", justifyContent: 'center', alignItems: "center", flexDirection: 'column', position: 'relative' }} >
-                        <div className="slider-div-1" animation={this.state.toggler} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
+                        <div className="slider-div-1" ani={this.state.ani} animation={this.state.toggler} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
                             <div style={{ margin: 30 }} >
                                 <span className="slider-heading" style={{ fontWeight: 400 }} >Delivery Information</span>
                             </div>
@@ -455,13 +490,13 @@ class Devilvery extends React.Component {
                                     </select>
                                 </div> */}
                                 <div className="mt-5"  >
-                                    <button className="add-new-btn" onClick={() => this.setState({ toggler: 1 })} >Add New</button>
+                                    <button className="add-new-btn" onClick={() => this.setState({ toggler: 1, ani: 1 })} >Add New</button>
                                 </div>
                             </div>
                         </div>
                         {
                             this.state.toggler === 1 ?
-                                <div className="slider-div-1 new-animation" style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
+                                <div className="slider-div-1 new-animation" ani={this.state.ani} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: "auto", marginBottom: 30 }} >
                                     <div style={{ margin: 30 }} >
                                         <span className="slider-heading" style={{ fontWeight: 400 }} >Delivery Information</span>
                                     </div>
@@ -491,7 +526,7 @@ class Devilvery extends React.Component {
                                             }
 
                                             <div className="form-selected-option mt-5">
-                                                <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30 }} type="text" placeholder="Open Adress" onChange={this.handleChangeAddress} className="adresses-input" ></textarea>
+                                                <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30 }} type="text" placeholder="Open Adress" onChange={(e) => this.setState({ openaddress: e.target.value })} className="adresses-input" ></textarea>
                                             </div>
                                             <div className="form-selected-option mt-5">
                                                 <input type="text" placeholder="City" onChange={this.handleChangeCity} className="adresses-input" />
@@ -500,20 +535,23 @@ class Devilvery extends React.Component {
                                                 <input type="text" placeholder="Area" className="adresses-input" onChange={this.handleChangeArea} />
                                             </div>
                                             <div className="form-selected-option mt-5">
-                                                <input type="text" placeholder="ID Card Number" className="adresses-input" onChange={this.handleChangeidCARD} />
+                                                <input type="number" placeholder="ID Card Number" className="adresses-input" onChange={this.handleChangeidCARD} />
                                             </div>
                                             <div className="form-selected-option mt-5">
-                                                <input type="text" placeholder="Postal Code" className="adresses-input" onChange={this.handleChangePostalCode} />
+                                                <input type="number" placeholder="Postal Code" className="adresses-input" onChange={this.handleChangePostalCode} />
                                             </div>
                                             <div className="form-selected-option mt-5">
-                                                <input type="text" placeholder="Telephone Number" className="adresses-input" onChange={this.handleChangeNumber} />
+                                                <input type="number" placeholder="Telephone Number" className="adresses-input" onChange={this.handleChangeNumber} />
                                             </div>
 
                                             <div className="mt-5"  >
-                                                <button className="add-new-btn" >Add Address</button>
+                                                <button className="add-new-btn"  >Add Address</button>
                                             </div>
                                         </div>
                                     </form>
+                                    <div className="mt-5"  >
+                                        <button className="add-new-btn" onClick={() => this.setState({ ani: 2 })} >Go Back</button>
+                                    </div>
                                 </div>
                                 : null
                         }

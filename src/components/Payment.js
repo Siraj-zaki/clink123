@@ -173,7 +173,7 @@ class Payment extends React.Component {
 
     handleSubmit = async (event) => {
 
-       
+
         console.log(this.props);
         event.preventDefault();
 
@@ -457,60 +457,54 @@ class Payment extends React.Component {
                                 </div>
                                 <div className="left-side-form">
                                     <div className="form-selected-option">
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="UserName" onChange={this.handleChangeName} className="adresses-input" style={{ width: '50rem' }} required />
+                                        <div className="form-selected-option mt-4">
+                                            <input type="text" placeholder="User Name" onChange={this.handleChangeName} className="adresses-input" style={{ width: '50rem' }} required />
                                         </div>
-                                        <div className="form-selected-option mt-5">
-                                            <input type="text" placeholder="ContactNumber" onChange={this.handleChangeNumber} className="adresses-input" style={{ width: '50rem' }} required />
+                                        <div className="form-selected-option mt-4">
+                                            <input type="text" placeholder="Contact Number" onChange={this.handleChangeNumber} className="adresses-input" style={{ width: '50rem' }} required />
                                         </div>
-                                        <div className="form-selected-option mt-5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {/* <input type="text" placeholder="PostalCode" className="adresses-input  " style={{ width: 'auto', minWidth: 'auto' }} /> */}
-                                            {/* <CardCvcElement className="addresses-input"  /> */}
-                                            <CardNumberElement options={CARD_ELEMENT_OPTIONS} className='adresses-input' />
-                                            {/* <CardExpiryElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/> */}
-                                            {/* <input type="text" placeholder="Csv" className="adresses-input " style={{ width: 'auto', minWidth: 'auto' }} /> */}
+                                        <div style={{ width: "100%" }}>
+                                            <div className="form-selected-option " style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
+                                                <CardNumberElement options={CARD_ELEMENT_OPTIONS} className='adresses-input mt-4' />
+                                                <CardExpiryElement options={CARD_ELEMENT_OPTIONS} className='adresses-input adresses-input-2 mt-4' />
+                                            </div>
+                                            {/* <div className="form-selected-option mt-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
+
+                                            </div> */}
                                         </div>
-                                        <div className="form-selected-option mt-5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {/* <input type="text" placeholder="PostalCode" className="adresses-input  " style={{ width: 'auto', minWidth: 'auto' }} /> */}
-                                            {/* <CardCvcElement className="addresses-input"  /> */}
-                                            <CardExpiryElement options={CARD_ELEMENT_OPTIONS} className='adresses-input' />
-                                            {/* <CardExpiryElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/> */}
-                                            {/* <input type="text" placeholder="Csv" className="adresses-input " style={{ width: 'auto', minWidth: 'auto' }} /> */}
-                                        </div>
-                                        <div className="form-selected-option mt-5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {/* <CardElement className="adresses-input  " /> */}
-                                            {/* <CardNumberElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/>
-                                        <CardExpiryElement  options={CARD_ELEMENT_OPTIONS} className='adresses-input'/> */}
-                                            <CardCvcElement options={CARD_ELEMENT_OPTIONS} className='adresses-input' />
-                                            <div style={{ width: 'auto', minWidth: 'auto' }} >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="172.2" height="76" viewBox="0 0 172.2 76">
-                                                    <g id="Group_6254" data-name="Group 6254" transform="translate(-636.8 -692)">
-                                                        <text id="Card_Number" data-name="Card Number" transform="translate(685 747)" fill="#a2a2a2" font-size="18" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0"></tspan></text>
-                                                        <g id="Group_5348" data-name="Group 5348" transform="translate(604.8 596)">
-                                                            <path id="Path_3536" data-name="Path 3536" d="M131.75,96H38.65A6.654,6.654,0,0,0,32,102.65v62.7A6.67,6.67,0,0,0,38.65,172h93.1a6.67,6.67,0,0,0,6.65-6.721V102.721A6.67,6.67,0,0,0,131.75,96Zm-89.039,7.6h84.954a3.157,3.157,0,0,1,3.111,2.85v4.75H39.6v-4.821A3.131,3.131,0,0,1,42.711,103.6Zm84.977,60.8H42.711a3.114,3.114,0,0,1-3.111-2.779V134h91.2v27.55A3.175,3.175,0,0,1,127.689,164.4Z" fill="#233d3a" />
-                                                            <path id="Path_3537" data-name="Path 3537" d="M96,304h45.6v3.8H96Z" transform="translate(-48.8 -158.6)" fill="#233d3a" />
-                                                            <path id="Path_3538" data-name="Path 3538" d="M96,336h22.8v3.8H96Z" transform="translate(-48.8 -183)" fill="#233d3a" />
-                                                            <path id="Path_3539" data-name="Path 3539" d="M352,304h15.2v11.4H352Z" transform="translate(-244 -158.6)" fill="#233d3a" />
-                                                        </g>
+                                        <div className="form-selected-option " style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
+                                            <CardCvcElement options={CARD_ELEMENT_OPTIONS} className='adresses-input mt-4' />
+                                            <div className="mt-4" style={{ width: 'auto', minWidth: 'auto' }} >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="172.2" height="76" viewBox="0 0 172.2 76">
+                                                <g id="Group_6254" data-name="Group 6254" transform="translate(-636.8 -692)">
+                                                    <text id="Card_Number" data-name="Card Number" transform="translate(685 747)" fill="#a2a2a2" font-size="18" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0"></tspan></text>
+                                                    <g id="Group_5348" data-name="Group 5348" transform="translate(604.8 596)">
+                                                        <path id="Path_3536" data-name="Path 3536" d="M131.75,96H38.65A6.654,6.654,0,0,0,32,102.65v62.7A6.67,6.67,0,0,0,38.65,172h93.1a6.67,6.67,0,0,0,6.65-6.721V102.721A6.67,6.67,0,0,0,131.75,96Zm-89.039,7.6h84.954a3.157,3.157,0,0,1,3.111,2.85v4.75H39.6v-4.821A3.131,3.131,0,0,1,42.711,103.6Zm84.977,60.8H42.711a3.114,3.114,0,0,1-3.111-2.779V134h91.2v27.55A3.175,3.175,0,0,1,127.689,164.4Z" fill="#233d3a" />
+                                                        <path id="Path_3537" data-name="Path 3537" d="M96,304h45.6v3.8H96Z" transform="translate(-48.8 -158.6)" fill="#233d3a" />
+                                                        <path id="Path_3538" data-name="Path 3538" d="M96,336h22.8v3.8H96Z" transform="translate(-48.8 -183)" fill="#233d3a" />
+                                                        <path id="Path_3539" data-name="Path 3539" d="M352,304h15.2v11.4H352Z" transform="translate(-244 -158.6)" fill="#233d3a" />
                                                     </g>
-                                                </svg>
+                                                </g>
+                                            </svg>
+                                        </div> 
+                                        </div>
+                                        
+                                        <div className="form-selected-option mt-4" style={{ width: '100%' }}>
+                                            <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30, width: '100%' }} type="text" placeholder="Order Note or message (If any)" onChange={this.handleChangeOrderNote} className="adresses-input" ></textarea>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', width: '100%' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                                                <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}>that, I am 21 above</label> </label>
                                             </div>
-                                            <div className="form-selected-option mt-5" style={{ width: '100%' }}>
-                                                <textarea style={{ height: 200, paddingTop: 10, paddingRight: 30, width: '100%' }} type="text" placeholder="Order Note or message (If any)" onChange={this.handleChangeOrderNote} className="adresses-input" ></textarea>
-                                            </div>
-                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', width: '100%' }}>
-                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                                                    <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}>that, I am 21 above</label> </label>
-                                                </div>
-                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                                                    <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}> terms & conditions and Privacy policy</label> </label>
-                                                </div>
+                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                                                <input className="checking m-1" type="checkbox" required name="" id="" /><label htmlFor="checking" className="remember-heading m-1">I agree <label htmlFor="checking" className="remember-heading m-1" style={{ color: "#a10948" }}> terms & conditions and Privacy policy</label> </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+
                         </div>
                         <div className="cart-right-side" style={{ zIndex: 1, width: '100%', paddingLeft: '4rem' }}>
                             <div className="selected-items-div">
@@ -579,7 +573,7 @@ const Devilvery = (props) => (
 
     <ElementsConsumer>
         {({ stripe, elements }) => (
-           
+
             <Payment stripe={stripe} elements={elements} cardData={props.cartData} customerAddress={props.customerAddress} emptycard={props.emptyFromCart} />
         )}
     </ElementsConsumer>
