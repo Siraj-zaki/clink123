@@ -281,6 +281,8 @@ class AddingToCart extends React.Component {
                                     )
                                 }
                             </Swiper>
+
+                            
                         </div>
                         <button className="li-size  addtocart " style={{ minHeight: 70, border: 'none', width: 270 }} >Add to Cart</button>
                         <button className="li-size  addtocart " style={{ backgroundColor: 'transparent', minHeight: 70, border: '1px solid  #a10948 ', color: '#a10948', width: 270, marginTop: 40, }} onClick={() => window.location.href = "/Products"} >Explore More</button>
@@ -289,7 +291,7 @@ class AddingToCart extends React.Component {
                         <div className="selected-items-div">
                             <div className="cart-heading">
                                 <img src={cart} alt="" />
-                                
+
                                 <span className="cart-heading-heading">Cart</span>
                             </div>
                             {this.props?.cartData && this.props?.cartData.length ?
