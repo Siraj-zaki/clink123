@@ -41,6 +41,7 @@ class Blogs extends React.Component {
     render() {
         return (
             <div style={{ width: '100%', padding: '6rem', paddingTop: this.props.blogpage ? "0px" : '6rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: "column" }}>
+                <span className="section-products-h1 mt-5" style={{ zIndex: 20, position: 'relative',fontWeight:200 ,marginBottom:20}}>Blogs and News</span>
                 <div className="css-grid-2" style={{ marginTop: this.props.blogpage ? "0px " : "10rem" }}>
                     {
                         this.state.blogs.map((blog, index) =>

@@ -17,16 +17,16 @@ class BlogPage extends React.Component {
 
                 <Navbar />
                 <div style={{ display: 'flex', justifyContent: "center", alignItems: 'center', width: '100%', flexDirection: 'column' }}>
-                    <span className="section-products-h1 mt-5" style={{ zIndex: 20, position: 'relative', textAlign: 'center', fontWeight: 600, marginBottom: 30 }}>Blogs and News</span>
+                    {/* <span className="section-products-h1 mt-5" style={{ zIndex: 20, position: 'relative', textAlign: 'center', fontWeight: 600, marginBottom: 30 }}>Blogs and News</span> */}
                     {
                         Array(1).fill().map((item, index) =>
                             <Blogs blogpage />
                         )
                     }
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    {/* <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <button onClick={() => window.location.href="/BlogPage"}  className="all-blogs-btn" >All Blogs  <img src={blogarrow} height="10px" width="10px" alt="" /> </button>
 
-                    </div>
+                    </div> */}
                 </div>
 
                 <Footer />
