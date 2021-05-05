@@ -652,7 +652,7 @@ class Navbar extends React.Component {
                   <li
                     className="menu-li"
                     style={{ cursor: "pointer" }}
-                    onClick={() => (window.location.href = "/Shops")}
+                    onClick={() => (window.location.href = "/Contact")}
                   >
                     Contact
                   </li>

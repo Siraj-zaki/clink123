@@ -55,7 +55,7 @@ class Home extends React.Component {
           <div className="section-1">
             <div className="left-side">
               <span className="section-left-side-h1">Time to Clink it up</span>
-              <p className="section-left-side-p">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam </p>
+              <p className="section-left-side-p">Every celebration deserves a clink! Have your favorite Alcohol delivered to you instantly with Clink Delivery we provide you with . </p>
               <button className="section-left-side-btn" onClick={() => window.location.href = "/Products"} >Products</button>
             </div>
             <div className="right-side">
@@ -68,7 +68,7 @@ class Home extends React.Component {
             </div>
             <div className="right-side-new">
               <span className="section-left-side-h1">About <span className="font"> Clink</span></span>
-              <p className="section-left-side-p">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus </p>
+              <p className="section-left-side-p">Clink Delivery offers safe and convenient alcohol beverage delivery straight to your door. Clink Delivery provides a wide selection of your favorite beverages with low prices of a local convenience store . </p>
               <button className="section-left-side-btn" onClick={() => window.location.href = "/Products"} >Products</button>
             </div>
           </div>

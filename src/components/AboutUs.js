@@ -35,32 +35,36 @@ class Home extends React.Component {
                 <div className="about-us">
                     <div className="about-us-grid">
                         <div className="same-class about-us-left-side">
-                            <span style={{ width: '10rem' }}>
+                            <span style={{ width: '7rem', minWidth: '50px' }}>
                                 <img width="100%" height="100%" src={liquor} alt="" />
                             </span>
-                            <span className="section-left-side-h1 new-color" style={{ fontSize: '5.2rem', marginTop: 10 }}> liquor store</span>
-                            <p className="section-left-side-p " style={{ fontSize: '3.5rem', fontWeight: 'normal', marginLeft: '13rem' }}>You Deserve</p>
+                            <span className="section-left-side-h1 new-color" style={{ fontSize: '3.5rem', marginTop: 10 }}> liquor Store Service</span>
+                            <p className="section-left-side-p " style={{ fontSize: '2rem', fontWeight: 'normal', marginLeft: '13rem' }}>You Deserve “At your Fingertips”</p>
 
                         </div>
                         <div className="same-class about-us-center-side">
-                            <span style={{ width: '10rem' }}>
+                            <span style={{ width: '7rem', minWidth: '50px' }}>
                                 <img width="100%" height="100%" src={delivery} alt="" />
                             </span>
-                            <span className="section-left-side-h1 new-color" style={{ fontSize: '5.2rem', marginTop: 10 }}> Delivery</span>
-                            <p className="section-left-side-p " style={{ fontSize: '3.5rem', fontWeight: 'normal', marginLeft: '13rem' }}>on location</p>
+                            <span className="section-left-side-h1 new-color" style={{ fontSize: '3.5rem', marginTop: 10 }}> Delivery</span>
+                            <p className="section-left-side-p " style={{ fontSize: '2rem', fontWeight: 'normal', marginLeft: '13rem' }}>On Demand</p>
 
                         </div>
                         <div className="same-class about-us-right-side">
-                            <span style={{ width: '10rem' }}>
+                            <span style={{ width: '7rem', minWidth: '50px' }}>
                                 <img width="100%" height="100%" src={experience} alt="" />
                             </span>
-                            <span className="section-left-side-h1 new-color" style={{ fontSize: '5.2rem', marginTop: 10 }}> Experience</span>
-                            <p className="section-left-side-p " style={{ fontSize: '3.5rem', fontWeight: 'normal', marginLeft: '13rem' }}>Best Liquor</p>
+                            <span className="section-left-side-h1 new-color" style={{ fontSize: '3.5rem', marginTop: 10 }}> Experience</span>
+                            <p className="section-left-side-p " style={{ fontSize: '2rem', fontWeight: 'normal', marginLeft: '13rem' }}>The Best Liquors “Ahhhhh, Refreshing!”</p>
                         </div>
                     </div>
                     <p className="section-left-side-p " style={{ fontSize: '6.5rem', fontWeight: 'bold', marginTop: '10rem' }}>Who are We</p>
-                    <p className="section-left-side-p mt-5" style={{width:'70rem',textAlign:'center'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus tristique sem in molestie. Phasellus ac justo et libero consectetur laoreet. Donec varius tellus sit amet justo faucibus lobortis. Nam vehicula eros sit amet porttitor lacinia. Donec ut ex eu magna mollis viverra non at metus. Cras ligula libero, pulvinar a elit ac, pellentesque sodales lacus. Donec augue nulla, pretium et aliquet at, pellentesque et turpis. Etiam ultricies porta pulvinar. Mauris nunc lorem, suscipit ut rhoncus ac, maximus ac libero. </p>
-                    <p className="section-left-side-p mt-5" style={{width:'70rem',textAlign:'center'}}>Proin sollicitudin mollis fringilla. Donec iaculis augue vel vestibulum sollicitudin. Mauris ullamcorper mi metus, vitae ullamcorper turpis iaculis vitae. Aenean eleifend, dui quis vulputate vulputate, diam erat volutpat lectus, maximus ultrices erat eros egestas nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed libero mauris, rhoncus quis tempor vel, laoreet at justo. Cras at dignissim felis. Sed accumsan lectus vitae arcu vulputate, id luctus odio malesuada.</p>
+                    <p className="section-left-side-p mt-5" style={{ width: '70rem', textAlign: 'center' }}>
+                        At Clink Delivery, we bring your local liquor store favorites right to your fingertips. Clink Delivery is here to revolutionize the way you buy liquor, by bringing you the wide variety, convenience, and shelf prices a liquor store offers directly to you. We directly work with all liquor store listed on our site to guarantee the quality service you deserve. What sets us apart from the other delivery services is that we don’t charge stores for our service so that they don’t have to charge you!
+ </p>
+                    <p className="section-left-side-p mt-5" style={{ width: '70rem', textAlign: 'center' }}>Clink Delivery was founded in 2020 in response to big corporate delivery companies increasing product prices and delivery fees at the expense of both small businesses and average customers. Our mission is to provide local small businesses the ability and the resources to adapt to the new ecommerce business style without having to compromise the revenue that fuels their existence.</p>
+                    <p className="section-left-side-p mt-5" style={{ width: '70rem', textAlign: 'center' }}>Clink Delivery, a celebration for all!
+</p>
 
                 </div>
                 <Footer />
